@@ -2,6 +2,7 @@ export class Ship {
   constructor(len, hits) {
     this.len = len;
     this.hits = hits;
+    this.occupiedSpaces = [];
 
     function hit() {
       hits = hits + 1;
