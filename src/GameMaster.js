@@ -1,15 +1,13 @@
-export function outOfBounds(coord = [1, 2], len, orientation) {
+export function outOfBounds(coord, len, orientation) {
   if (orientation == "horizontal") {
     const y = coord[1];
-    if (y+len-1>9) {
+    if (y + len - 1 > 9) {
       return true;
     }
     return false;
-  }
-
-  else if (orientation == "vertical") {
-    const x = coord[1];
-    if(x+len-1 > 9){
+  } else if (orientation == "vertical") {
+    const x = coord[0];
+    if (x + len - 1 > 9) {
       return true;
     }
     return false;
@@ -28,14 +26,30 @@ export class Gameboard {
       }
       this.gameboardMatrix.push(row);
     }
+  }
 
-    function placeShip(shipObj, coord, orientation) {}
-
-    function receiveHits(coord) {
-      let target = gameboardMatrix[coord[0]][coord[1]];
-      if (target == 1) {
-        target = target + 1;
+  placeShip(shipObj, coord, orientation) {
+    if (!outOfBounds(coord, shipObj.len, orientation)) {
+      const row = coord[0];
+      const col = coord[1];
+      if (orientation === "vertical") {
+        for (let i = 0; i < shipObj.len; i++) {
+          shipObj.occupiedSpaces.push([row+i, col]);
+        }
+      } else if (orientation === "horizontal") {
+        for (let i = 0; i < shipObj.len; i++) {
+          shipObj.occupiedSpaces.push([row, col+i]);
+        }
       }
+    } else {
+      return;
+    }
+  }
+
+  receiveHits(coord) {
+    let target = gameboardMatrix[coord[0]][coord[1]];
+    if (target == 1) {
+      target = target + 1;
     }
   }
 }
