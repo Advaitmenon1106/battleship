@@ -12,7 +12,7 @@ test("The function outOfBounds detects the boundaries of the gameboard", () => {
   expect(outOfBounds([9, 9], 2, "horizontal")).toBeTruthy();
 });
 
-test("The gameboard/\"GameMaster\" places a ship correctly", () => {
+test('The gameboard/"GameMaster" places a ship correctly', () => {
   const newShip = new Ship(5, 0);
   const anotherNewShip = new Ship(5, 0);
   const yetAnotherShip = new Ship(3, 0);
@@ -41,4 +41,14 @@ test("The gameboard/\"GameMaster\" places a ship correctly", () => {
   );
 
   expect(jsfy(anotherNewShip.occupiedSpaces)).toBe("[]");
+});
+
+test("landHits functions as expected, logically, and the function registers a hit", () => {
+  const gb = new Gameboard();
+  const newShip = gb.shipList[9];
+
+  gb.placeShip(newShip, [1, 0], "horizontal");
+  gb.landHit([1, 2]);
+  expect(gb.gameboardMatrix[1][2]).toBe(-1);
+  expect(newShip.hits).toBe(1);
 });
