@@ -86,5 +86,8 @@ export class Gameboard {
         });
       });
     }
+    else{
+      this.gameboardMatrix[coord[0]][coord[1]] = 0.5;
+    }
   }
 }

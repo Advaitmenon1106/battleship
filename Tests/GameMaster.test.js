@@ -1,5 +1,5 @@
-import { Gameboard, outOfBounds } from "../GameMaster";
-import { Ship } from "../Ship";
+import { Gameboard, outOfBounds } from "../src/GameMaster";
+import { Ship } from "../src/Ship";
 
 const jsfy = JSON.stringify;
 
@@ -51,4 +51,14 @@ test("landHits functions as expected, logically, and the function registers a hi
   gb.landHit([1, 2]);
   expect(gb.gameboardMatrix[1][2]).toBe(-1);
   expect(newShip.hits).toBe(1);
+});
+
+test("landHits does not indicate a hit falsely on the gameboard", () => {
+  const gb = new Gameboard();
+  const newShip = gb.shipList[9];
+
+  gb.placeShip(newShip, [1, 0], "horizontal");
+  gb.landHit([2, 2]);
+  expect(gb.gameboardMatrix[2][2]).toBe(0.5);
+  expect(newShip.hits).toBe(0);
 });
