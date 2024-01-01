@@ -85,9 +85,21 @@ export class Gameboard {
           }
         });
       });
-    }
-    else{
+    } else {
       this.gameboardMatrix[coord[0]][coord[1]] = 0.5;
     }
+  }
+
+  allShipsSunk() {
+    let counter = 0;
+    this.shipList.forEach((shipObj) => {
+      if (shipObj.len === shipObj.hits) {
+        counter = counter + 1;
+      }
+    });
+    if (counter === this.shipList.length) {
+      return true;
+    }
+    return false;
   }
 }

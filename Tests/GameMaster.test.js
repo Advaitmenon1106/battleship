@@ -62,3 +62,14 @@ test("landHits does not indicate a hit falsely on the gameboard", () => {
   expect(gb.gameboardMatrix[2][2]).toBe(0.5);
   expect(newShip.hits).toBe(0);
 });
+
+test("The gameboard correctly determines if all ships are sunk", () => {
+  const gb = new Gameboard();
+  expect(gb.allShipsSunk()).toBeFalsy();
+
+  gb.shipList.forEach((shipObj) => {
+    shipObj.hits = shipObj.len;
+  });
+
+  expect(gb.allShipsSunk()).toBeTruthy();
+});
