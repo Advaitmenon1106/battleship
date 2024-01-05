@@ -4,10 +4,10 @@ export class Ship {
     this.hits = hits;
     this.name = name
     this.occupiedSpaces = [];
-
-    function hit() {
-      hits = hits + 1;
-    }
+  }
+  
+  hit(){
+    this.hits = this.hits+1;
   }
 }
 
