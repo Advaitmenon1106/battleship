@@ -25,7 +25,7 @@ export class AI {
   }
 
   makeAMove(oppGameboardObj) {
-    let move;
+    let move = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
     while (
       oppGameboardObj.gameboardMatrix[move[0][move[1]]] != 0 &&
       coordInArray(this.moveStack, move) == true &&
