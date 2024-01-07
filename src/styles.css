@@ -1,0 +1,12 @@
+#grid-outline{
+    display: grid;
+    grid-template-columns: repeat(10, 3vw);
+    grid-auto-rows: 3vw;
+
+}
+
+.grid-boxes{
+    width: 3vw;
+    height: 3vw;
+    border: 1px solid black;
+}
