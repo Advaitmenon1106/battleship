@@ -16,6 +16,26 @@ export function outOfBounds(coord, len, orientation) {
   }
 }
 
+export function overlap(gameboardMatrix, coord, len, orientation) {
+  const y = coord[1];
+  const x = coord[0];
+  if (orientation === "horizontal") {
+    for (let i = y; i < y + len; i++) {
+      if (gameboardMatrix[x][i] === 1) {
+        return true;
+      }
+    }
+    return false;
+  } else if (orientation === "vertical") {
+    for (let i = x; i < x + len; i++) {
+      if (gameboardMatrix[i][y] === 1) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
 export class Gameboard {
   constructor() {
     this.gameboardMatrix = [];
@@ -55,7 +75,10 @@ export class Gameboard {
   }
 
   placeShip(shipObj, coord, orientation) {
-    if (!outOfBounds(coord, shipObj.len, orientation)) {
+    if (
+      !outOfBounds(coord, shipObj.len, orientation) &&
+      !overlap(this.gameboardMatrix, coord, shipObj.len, orientation)
+    ) {
       const row = coord[0];
       const col = coord[1];
       if (orientation === "vertical") {
