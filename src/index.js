@@ -1,4 +1,5 @@
 import generateGrid from "./ui/GenerateGrid";
 import "./styles.css";
 
-document.addEventListener("DOMContentLoaded", generateGrid());
+document.addEventListener("DOMContentLoaded", generateGrid);
+
