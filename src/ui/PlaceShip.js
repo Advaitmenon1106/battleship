@@ -6,7 +6,6 @@ export function overlappingUI(id, dim, len, orientation) {
       if (
         document.getElementById(String(i)).style.backgroundColor === "black"
       ) {
-        console.log("at id: " + i);
         return true;
       }
     }
@@ -72,7 +71,7 @@ function displayAvailablePositions(event, shipObj, orientation) {
     for (let i = id; i < id + shipObj.len; i++) {
       document
         .getElementById(String(i))
-        .setAttribute("style", "background-color: silver");
+        .setAttribute("style", "background-color: black; opacity: 0.3");
     }
   }
 }
@@ -91,13 +90,14 @@ function placeShip(event, shipObj, resetFn, mouseOverFn) {
     return;
   } else {
     const id = Number(event.target.id);
+    
     for (let i = id; i < id + shipObj.len; i++) {
       const currentGrid = document.getElementById(String(i));
       currentGrid.setAttribute("style", "background-color: black");
       currentGrid.removeEventListener("mouseleave", resetFn);
       currentGrid.removeEventListener("mouseover", mouseOverFn);
       console.log(i);
-    }
+    }                                                                                                                             
   }
 }
 
