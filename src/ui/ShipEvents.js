@@ -1,4 +1,4 @@
-import { outOfBounds, overlap } from "../logic/GameMaster";
+import { outOfBounds, overlap, shipExists } from "../logic/GameMaster";
 
 export function displayAvailablePositions(
   event,
@@ -49,6 +49,10 @@ export function hoverColourFade(event, gameboardObj, length, orientation) {
   }
   else {
     for (let i = id; i < id+length; i++) {
+      const currentCoord = [Math.floor(i / 10), i % 10]
+      if (shipExists(gameboardObj, currentCoord)){
+        return;
+      }
       const currentGrid = document.getElementById(String(i));
       currentGrid.setAttribute("style", "background-color: none");
       // console.log(i);      
@@ -63,7 +67,7 @@ export function placeShip(event, gameboardObj, shipObj, orientation) {
   const x = Math.floor(id / 10);
   const y = id % 10;
   const coord = [x, y];
-  // orientation = "horizontal";
+  orientation = "horizontal";
 
   if (overlap(gameboardMatrix, coord, len, orientation) || outOfBounds(coord, len, orientation)) {
     return;
