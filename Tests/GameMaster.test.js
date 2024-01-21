@@ -1,5 +1,6 @@
-import { Gameboard, outOfBounds } from "../src/GameMaster";
-import { Ship } from "../src/Ship";
+import { Gameboard, outOfBounds } from "../src/logic/GameMaster";
+import { Ship } from "../src/logic/Ship";
+import { overlap } from "../src/logic/GameMaster";
 
 const jsfy = JSON.stringify;
 
@@ -16,7 +17,7 @@ test('The gameboard/"GameMaster" places a ship correctly', () => {
   const newShip = new Ship(5, 0);
   const anotherNewShip = new Ship(5, 0);
   const yetAnotherShip = new Ship(3, 0);
-  const gb = new Gameboard(5);
+  const gb = new Gameboard();
 
   gb.placeShip(newShip, [1, 0], "horizontal");
   gb.placeShip(anotherNewShip, [0, 6], "horizontal");
@@ -33,11 +34,7 @@ test('The gameboard/"GameMaster" places a ship correctly', () => {
   );
 
   expect(jsfy(yetAnotherShip.occupiedSpaces)).toBe(
-    jsfy([
-      [1, 2],
-      [2, 2],
-      [3, 2],
-    ]),
+    jsfy([]),
   );
 
   expect(jsfy(anotherNewShip.occupiedSpaces)).toBe("[]");
@@ -72,4 +69,14 @@ test("The gameboard correctly determines if all ships are sunk", () => {
   });
 
   expect(gb.allShipsSunk()).toBeTruthy();
+});
+
+test("Overlap correctly determines which grids are problematic", () => {
+  const gb = new Gameboard();
+  const Ship1 = gb.shipList[9];
+  const Ship2 = gb.shipList[9];
+
+  gb.placeShip(Ship1, [1, 5], "horizontal");
+  expect(overlap(gb.gameboardMatrix, [1, 3], Ship2.len, "horizontal")).toBeTruthy();
+  expect(overlap(gb.gameboardMatrix, [1, 7], Ship2.len, "horizontal")).toBeTruthy();
 });

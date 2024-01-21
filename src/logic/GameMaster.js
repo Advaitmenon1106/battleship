@@ -16,6 +16,22 @@ export function outOfBounds(coord, len, orientation) {
   }
 }
 
+export function shipExists(gameboardObj, coord) {
+  // implement vert
+  const gbMatrix = gameboardObj.gameboardMatrix;
+  if (gbMatrix[coord[0]][coord[1]] === 1) {
+    return true;
+  }
+  // else {
+  //   for (let i = coord[1]; i<coord[1]+shipObj.len; i++) {
+  //     if (gbMatrix[coord[0]][coord[i]] === 1) {
+  //       return true;
+  //     }
+  //   }
+  // }
+  return false;
+}
+
 export function overlap(gameboardMatrix, coord, len, orientation) {
   const y = coord[1];
   const x = coord[0];
