@@ -7,7 +7,8 @@ export default function generateGrid() {
   const gameboard = new Gameboard();
   const ship = new Ship(5, 0, "Battleship");
   gridOutline.id = "grid-outline";
-  const orientation = document.getElementById("orientation").innerHTML;
+  let orientation = document.getElementById("orientation").innerHTML;
+  orientation = orientation.toLowerCase();
 
   document.body.appendChild(gridOutline);
 
@@ -17,7 +18,7 @@ export default function generateGrid() {
     gridOutline.appendChild(box);
     box.id = String(i);
     
-    box.addEventListener("mouseover", (event)=>displayAvailablePositions(event, ship, gameboard, orientation.toLowerCase()));
+    box.addEventListener("mouseover", (event)=>displayAvailablePositions(event, ship, gameboard, orientation));
     box.addEventListener("mouseleave", (event)=>hoverColourFade(event, gameboard, ship.len, orientation));
     box.addEventListener("click", (event)=>placeShip(event, gameboard, ship, orientation));
   }
